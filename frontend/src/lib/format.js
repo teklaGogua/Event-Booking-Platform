@@ -9,3 +9,6 @@ export function formatDate(iso) {
     minute: '2-digit',
   })
 }
+
+// True if the event date is already in the past
+export const isPast = (iso) => new Date(iso).getTime() < Date.now()
