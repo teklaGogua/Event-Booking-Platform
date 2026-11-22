@@ -1,25 +1,26 @@
-import { useEffect, useState } from 'react'
-import { events } from './api/index.js'
+import { useAuth } from './context/AuthContext.jsx'
 
 export default function App() {
-  const [list, setList] = useState([])
-  const [error, setError] = useState('')
+  const { user, loading, login, logout } = useAuth()
 
-  useEffect(() => {
-    events.list()
-      .then((data) => setList(data.data))
-      .catch((err) => setError(err.message))
-  }, [])
+  if (loading) return <p>Loading…</p>
 
   return (
     <div>
       <h1>EventHub</h1>
-      {error && <p>Error: {error}</p>}
-      <ul>
-        {list.map((e) => (
-          <li key={e.id}>{e.title}</li>
-        ))}
-      </ul>
+      {user ? (
+        <>
+          <p>Logged in as {user.name} ({user.role})</p>
+          <button onClick={logout}>Log out</button>
+        </>
+      ) : (
+        <>
+          <p>Not logged in</p>
+          <button onClick={() => login({ email: 'attendee@example.com', password: 'Password123!' })}>
+            Test login
+          </button>
+        </>
+      )}
     </div>
   )
 }
