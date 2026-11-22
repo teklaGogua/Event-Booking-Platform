@@ -29,7 +29,6 @@ const withDerived = (row, userId) => {
 
 const getEventRow = (id) => db.prepare(`${SELECT_EVENT} WHERE e.id = ?`).get(id);
 
-// Organizers may touch only their own events; admins may touch any.
 function assertCanManage(user, event) {
   if (user.role === 'admin') return;
   if (event.organizer_id !== user.id) throw forbidden('You can only manage your own events');
@@ -48,7 +47,6 @@ function checkVenueAndCategory(venueId, categoryId, capacity) {
   }
 }
 
-// ---------- Public: browse ----------
 router.get('/', optionalAuth, validate({ query: eventListQuery }), (req, res) => {
   const { q, category_id, venue_id, include_past, page, limit } = req.valid.query;
   const where = [];
@@ -70,7 +68,6 @@ router.get('/', optionalAuth, validate({ query: eventListQuery }), (req, res) =>
   });
 });
 
-// Events created by the logged-in organizer (must be declared before "/:id")
 router.get('/mine', authenticate, requireRole('organizer', 'admin'), (req, res) => {
   const rows = db.prepare(`${SELECT_EVENT} WHERE e.organizer_id = ? ORDER BY e.event_date ASC`).all(req.user.id);
   res.json({ data: rows.map((r) => withDerived(r)) });
@@ -82,7 +79,6 @@ router.get('/:id', optionalAuth, validate({ params: idParam }), (req, res) => {
   res.json({ event: withDerived(row, req.user?.id) });
 });
 
-// ---------- Organizer: create / update / delete ----------
 router.post('/', authenticate, requireRole('organizer', 'admin'), validate({ body: eventCreate }), (req, res) => {
   const b = req.valid.body;
   if (new Date(b.event_date) <= new Date()) throw badRequest('Event date must be in the future');
@@ -131,7 +127,6 @@ router.delete('/:id', authenticate, requireRole('organizer', 'admin'), validate(
   res.status(204).end();
 });
 
-// ---------- Attendee list (owner organizer or admin) ----------
 router.get('/:id/attendees', authenticate, requireRole('organizer', 'admin'),
   validate({ params: idParam }), (req, res) => {
     const event = db.prepare('SELECT id, title, capacity, organizer_id FROM events WHERE id = ?').get(req.valid.params.id);
@@ -148,8 +143,6 @@ router.get('/:id/attendees', authenticate, requireRole('organizer', 'admin'),
     res.json({ event: { id: event.id, title: event.title, capacity: event.capacity }, count: attendees.length, attendees });
   });
 
-// ---------- Attendee: register / cancel ----------
-// better-sqlite3 transactions are synchronous, so the capacity check and insert cannot interleave.
 const registerTx = db.transaction((eventId, userId) => {
   const event = db.prepare('SELECT id, capacity, event_date FROM events WHERE id = ?').get(eventId);
   if (!event) throw notFound('Event not found');

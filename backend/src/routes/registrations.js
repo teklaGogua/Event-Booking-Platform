@@ -2,7 +2,6 @@ const router = require('express').Router();
 const db = require('../db');
 const { authenticate, requireRole } = require('../middleware/auth');
 
-// All registrations of the logged-in attendee
 router.get('/me', authenticate, requireRole('attendee'), (req, res) => {
   const rows = db
     .prepare(

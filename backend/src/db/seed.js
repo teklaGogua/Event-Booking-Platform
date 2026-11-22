@@ -1,8 +1,7 @@
-// Run with: npm run db:seed   (safe to run repeatedly)
 const bcrypt = require('bcrypt');
 const db = require('./index');
 
-const PASSWORD = 'Password123!'; // test accounts only
+const PASSWORD = 'Password123!';
 
 const users = [
   ['Admin User', 'admin@example.com', 'admin'],

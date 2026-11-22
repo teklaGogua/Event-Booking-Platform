@@ -3,7 +3,6 @@ const { ApiError } = require('../errors');
 
 const notFoundHandler = (req, res) => res.status(404).json({ error: 'Route not found' });
 
-// eslint-disable-next-line no-unused-vars
 function errorHandler(err, req, res, next) {
   if (err instanceof ZodError) {
     return res.status(400).json({

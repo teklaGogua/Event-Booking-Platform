@@ -12,8 +12,6 @@ function readToken(req) {
   return null;
 }
 
-// Returns the user row or null. The user is re-read from the DB on every request,
-// so role changes and deleted accounts take effect immediately.
 function resolveUser(req) {
   const token = readToken(req);
   if (!token) return null;
@@ -25,7 +23,6 @@ function resolveUser(req) {
   }
 }
 
-// 401 if not logged in
 function authenticate(req, res, next) {
   const user = resolveUser(req);
   if (!user) return next(unauthorized());
@@ -33,13 +30,11 @@ function authenticate(req, res, next) {
   next();
 }
 
-// Attaches req.user when logged in, but lets anonymous visitors through
 function optionalAuth(req, res, next) {
   req.user = resolveUser(req);
   next();
 }
 
-// 403 unless the logged-in user has one of the given roles (always checked on the server)
 const requireRole = (...roles) => (req, res, next) => {
   if (!req.user) return next(unauthorized());
   if (!roles.includes(req.user.role)) {

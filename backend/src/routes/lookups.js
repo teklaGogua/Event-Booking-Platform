@@ -1,4 +1,3 @@
-// Venues and categories (reference data used by the event form)
 const express = require('express');
 const db = require('../db');
 const validate = require('../middleware/validate');
@@ -38,7 +37,6 @@ function crud(table, bodySchema, columns) {
   return router;
 }
 
-// Table/column names are hard-coded constants here, never user input.
 module.exports = {
   venues: crud('venues', venueBody, ['name', 'address', 'city', 'capacity']),
   categories: crud('categories', categoryBody, ['name']),

@@ -1,7 +1,5 @@
 const { ZodError } = require('zod');
 
-// validate({ body: schema, params: schema, query: schema })
-// Parsed (typed, trimmed, coerced) values end up in req.valid.body / .params / .query
 function validate(schemas) {
   return (req, res, next) => {
     try {

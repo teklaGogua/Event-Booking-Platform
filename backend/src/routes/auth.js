@@ -10,11 +10,10 @@ const { conflict, unauthorized } = require('../errors');
 const { jwtSecret, jwtExpiresInSeconds, isProd } = require('../config');
 
 const BCRYPT_ROUNDS = 12;
-// Used so that a login for an unknown email takes as long as one for a known email
 const DUMMY_HASH = bcrypt.hashSync('not-a-real-password', BCRYPT_ROUNDS);
 
 const cookieOptions = {
-  httpOnly: true, // JavaScript in the browser cannot read the token
+  httpOnly: true,
   sameSite: 'lax',
   secure: isProd,
   path: '/',

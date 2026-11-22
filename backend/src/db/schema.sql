@@ -1,4 +1,3 @@
--- Event Booking Platform schema (SQLite)
 PRAGMA foreign_keys = ON;
 
 CREATE TABLE IF NOT EXISTS users (
@@ -24,12 +23,11 @@ CREATE TABLE IF NOT EXISTS categories (
   name TEXT NOT NULL UNIQUE
 );
 
--- One organizer -> many events; one venue -> many events; one category -> many events
 CREATE TABLE IF NOT EXISTS events (
   id           INTEGER PRIMARY KEY AUTOINCREMENT,
   title        TEXT    NOT NULL,
   description  TEXT    NOT NULL DEFAULT '',
-  event_date   TEXT    NOT NULL,                -- ISO 8601 date-time
+  event_date   TEXT    NOT NULL,
   capacity     INTEGER NOT NULL CHECK (capacity > 0),
   organizer_id INTEGER NOT NULL REFERENCES users(id)      ON DELETE CASCADE,
   venue_id     INTEGER NOT NULL REFERENCES venues(id)     ON DELETE RESTRICT,
@@ -39,7 +37,6 @@ CREATE TABLE IF NOT EXISTS events (
 CREATE INDEX IF NOT EXISTS idx_events_date      ON events(event_date);
 CREATE INDEX IF NOT EXISTS idx_events_organizer ON events(organizer_id);
 
--- A user can have at most one row per event; cancelling flips status.
 CREATE TABLE IF NOT EXISTS registrations (
   id         INTEGER PRIMARY KEY AUTOINCREMENT,
   event_id   INTEGER NOT NULL REFERENCES events(id) ON DELETE CASCADE,
