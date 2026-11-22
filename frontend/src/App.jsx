@@ -1,20 +1,25 @@
 import { useEffect, useState } from 'react'
+import { events } from './api/index.js'
 
 export default function App() {
-  const [events, setEvents] = useState([])
+  const [list, setList] = useState([])
+  const [error, setError] = useState('')
 
   useEffect(() => {
-    fetch('/api/events')
-      .then((res) => res.json())
-      .then((data) => setEvents(data.data))
+    events.list()
+      .then((data) => setList(data.data))
+      .catch((err) => setError(err.message))
   }, [])
 
   return (
-  <div style={{ padding: 32 }}>
-    <h1>What’s on in Tbilisi</h1>
-    <p>Fonts and colors from Figma</p>
-    <button className="btn btn-primary">Register</button>{' '}
-    <button className="btn btn-secondary">Cancel</button>
-  </div>
+    <div>
+      <h1>EventHub</h1>
+      {error && <p>Error: {error}</p>}
+      <ul>
+        {list.map((e) => (
+          <li key={e.id}>{e.title}</li>
+        ))}
+      </ul>
+    </div>
   )
 }
