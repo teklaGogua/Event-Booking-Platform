@@ -1,26 +1,39 @@
-import { useAuth } from './context/AuthContext.jsx'
+import { Route, Routes } from 'react-router-dom'
+import Layout from './components/Layout.jsx'
+import ProtectedRoute from './components/ProtectedRoute.jsx'
+import Events from './pages/Events.jsx'
+import EventDetails from './pages/EventDetails.jsx'
+import Login from './pages/Login.jsx'
+import Register from './pages/Register.jsx'
+import MyRegistrations from './pages/MyRegistrations.jsx'
+import Dashboard from './pages/Dashboard.jsx'
 
 export default function App() {
-  const { user, loading, login, logout } = useAuth()
-
-  if (loading) return <p>Loading…</p>
-
   return (
-    <div>
-      <h1>EventHub</h1>
-      {user ? (
-        <>
-          <p>Logged in as {user.name} ({user.role})</p>
-          <button onClick={logout}>Log out</button>
-        </>
-      ) : (
-        <>
-          <p>Not logged in</p>
-          <button onClick={() => login({ email: 'attendee@example.com', password: 'Password123!' })}>
-            Test login
-          </button>
-        </>
-      )}
-    </div>
+    <Routes>
+      <Route element={<Layout />}>
+        <Route index element={<Events />} />
+        <Route path="events/:id" element={<EventDetails />} />
+        <Route path="login" element={<Login />} />
+        <Route path="register" element={<Register />} />
+        <Route
+          path="my-bookings"
+          element={
+            <ProtectedRoute roles={['attendee']}>
+              <MyRegistrations />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="dashboard"
+          element={
+            <ProtectedRoute roles={['organizer', 'admin']}>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="*" element={<p>Page not found.</p>} />
+      </Route>
+    </Routes>
   )
 }
