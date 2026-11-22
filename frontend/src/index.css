@@ -1,0 +1,63 @@
+:root {
+  --vermilion: #D9421C;
+  --vermilion-dark: #B83614;
+  --vermilion-tint: #FBE6DE;
+  --ink: #1A1814;
+  --ink-700: #4A463E;
+  --ink-500: #756F63;
+  --line: #E0DACC;
+  --line-strong: #B9B3A6;
+  --paper: #F7F3EC;
+  --paper-dark: #EDE7DA;
+  --surface: #FFFFFF;
+  --success: #2F7D4F;
+  --success-tint: #E1F0E6;
+  --error: #B42318;
+  --error-tint: #FBE4E1;
+  --cat-music: #D9421C;
+  --cat-sports: #0F6B6B;
+  --cat-food: #E3A21A;
+  --cat-art: #2B3F8F;
+
+  --font-heading: 'Bricolage Grotesque', 'DM Sans', system-ui, sans-serif;
+  --font-body: 'DM Sans', system-ui, sans-serif;
+
+  --radius-tag: 4px;
+  --radius-control: 8px;
+  --radius-dialog: 14px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 400 14px/20px var(--font-body);
+}
+
+h1, h2, h3 {
+  margin: 0;
+  font-family: var(--font-heading);
+  color: var(--ink);
+}
+h1 { font-size: 32px; line-height: 38px; font-weight: 700; }
+h2 { font-size: 24px; line-height: 30px; font-weight: 600; }
+h3 { font-size: 18px; line-height: 24px; font-weight: 600; }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  padding: 0 20px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-control);
+  font: 600 14px var(--font-body);
+  cursor: pointer;
+}
+.btn-primary { background: var(--vermilion); color: #fff; }
+.btn-primary:hover { background: var(--vermilion-dark); }
+.btn-secondary { background: var(--surface); color: var(--ink); border-color: var(--line-strong); }
+.btn-danger { background: var(--surface); color: var(--error); border-color: var(--error); }
+.btn:disabled { opacity: 0.4; cursor: not-allowed; }

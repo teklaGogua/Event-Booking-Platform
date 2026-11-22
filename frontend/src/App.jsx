@@ -10,13 +10,11 @@ export default function App() {
   }, [])
 
   return (
-    <div>
-      <h1>EventHub</h1>
-      <ul>
-        {events.map((e) => (
-          <li key={e.id}>{e.title}</li>
-        ))}
-      </ul>
-    </div>
+  <div style={{ padding: 32 }}>
+    <h1>What’s on in Tbilisi</h1>
+    <p>Fonts and colors from Figma</p>
+    <button className="btn btn-primary">Register</button>{' '}
+    <button className="btn btn-secondary">Cancel</button>
+  </div>
   )
 }
