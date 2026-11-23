@@ -1,6 +1,8 @@
+
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext.jsx'
+import './Auth.css'
 
 export default function Login() {
   const { login } = useAuth()
@@ -27,42 +29,77 @@ export default function Login() {
   }
 
   return (
-    <div>
-      <h1>Log in</h1>
-
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="email">Email</label>
-          <input
-            id="email"
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
+    <div className="auth-container">
+      <section className="auth-visual">
+        <div className="auth-brand">
+          <Link to="/" className="auth-brand-name">
+            EventHub
+          </Link>
         </div>
+      </section>
 
-        <div>
-          <label htmlFor="password">Password</label>
-          <input
-            id="password"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
+      <section className="auth-form-side">
+        <div className="auth-form-wrapper">
+          <div className="auth-tabs">
+            <Link to="/login" className="auth-tab active">
+              Log in
+            </Link>
+            <Link to="/register" className="auth-tab">
+              Register
+            </Link>
+          </div>
+
+          <div className="auth-heading">
+            <h1>Welcome back</h1>
+            <p>Enter your details to access your account.</p>
+          </div>
+
+          <form className="auth-form" onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label htmlFor="email">Email</label>
+              <input
+                id="email"
+                type="email"
+                placeholder="you@example.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+              <small>Use the email you registered with.</small>
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="password">Password</label>
+              <input
+                id="password"
+                type="password"
+                placeholder="Enter your password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </div>
+
+            {error && (
+              <div className="auth-error" role="alert">
+                {error}
+              </div>
+            )}
+
+            <button
+              type="submit"
+              className="auth-submit"
+              disabled={loading}
+            >
+              {loading ? 'Logging in...' : 'Log in'}
+            </button>
+          </form>
+
+          <p className="auth-switch">
+            No account yet? <Link to="/register">Register</Link>
+          </p>
         </div>
-
-        {error && <p role="alert">{error}</p>}
-
-        <button type="submit" disabled={loading}>
-          {loading ? 'Logging in…' : 'Log in'}
-        </button>
-      </form>
-
-      <p>
-        Don't have an account? <Link to="/register">Sign up</Link>
-      </p>
+      </section>
     </div>
   )
 }

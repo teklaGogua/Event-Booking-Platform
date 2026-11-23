@@ -1,0 +1,259 @@
+.auth-container {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+
+  width: 100%;
+  max-width: none;
+
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+
+  border-radius: 0;
+  overflow: hidden;
+}
+
+.auth-visual {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  padding: 32px;
+  color: white;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(20, 18, 16, 0.65),
+      rgba(20, 18, 16, 0.25) 45%,
+      rgba(20, 18, 16, 0.75)
+    ),
+    url('/images/auth-background.jpg') center / cover no-repeat;
+}
+
+.auth-brand {
+  position: relative;
+  z-index: 1;
+}
+
+.auth-brand-name {
+  display: inline-block;
+  color: white;
+  font-family: var(--font-heading);
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.auth-form-side {
+  width: 100%;
+  min-height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 40px;
+  background: var(--paper);
+}
+
+.auth-form-wrapper {
+  width: 100%;
+  max-width: 420px;
+}
+
+.auth-tabs {
+  display: flex;
+  gap: 22px;
+  margin-bottom: 35px;
+  border-bottom: 1px solid var(--line);
+}
+
+.auth-tab {
+  position: relative;
+  padding-bottom: 12px;
+  color: var(--ink-500);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.auth-tab.active {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.auth-tab.active::after {
+  position: absolute;
+  content: '';
+  left: 0;
+  bottom: -1px;
+  width: 100%;
+  height: 3px;
+  background: var(--main);
+}
+
+.auth-heading {
+  margin-bottom: 30px;
+}
+
+.auth-heading h1 {
+  font-size: 30px;
+  margin-bottom: 9px;
+}
+
+.auth-heading p {
+  color: var(--ink-500);
+  font-size: 13px;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  height: 45px;
+  padding: 0 14px;
+  border: 1px solid var(--line-strong);
+  border-radius: 6px;
+  outline: none;
+  background: white;
+  color: var(--ink);
+  font-size: 13px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-group input::placeholder {
+  color: #aaa59b;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: var(--main);
+  box-shadow: 0 0 0 3px rgba(82, 107, 88, 0.12);
+}
+
+.form-group small {
+  color: var(--ink-500);
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.auth-submit {
+  width: 100%;
+  min-height: 46px;
+  margin-top: 2px;
+  border: none;
+  border-radius: 6px;
+  background: var(--main);
+  color: white;
+  font-size: 13px;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+
+.auth-submit:hover {
+  background: var(--main-hover);
+}
+
+.auth-submit:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+.auth-error {
+  padding: 11px 13px;
+  border: 1px solid #efc2bd;
+  border-radius: 6px;
+  background: var(--error-tint);
+  color: var(--error);
+  font-size: 12px;
+}
+
+.auth-switch {
+  margin-top: 25px;
+  color: var(--ink-500);
+  font-size: 12px;
+}
+
+.auth-switch a {
+  color: var(--main);
+  font-weight: 700;
+}
+
+.auth-switch a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 900px) {
+  .auth-container {
+    grid-template-columns: 35% 65%;
+  }
+
+  .auth-form-side {
+    padding: 45px 30px;
+  }
+}
+
+@media (max-width: 650px) {
+  .auth-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    border-radius: 0;
+  }
+
+  .auth-visual {
+    min-height: 210px;
+  }
+
+  .auth-image-content {
+    padding-bottom: 0;
+  }
+
+  .auth-image-content h2 {
+    max-width: 320px;
+    font-size: 25px;
+  }
+
+  .auth-image-content p {
+    display: none;
+  }
+
+  .auth-image-label {
+    margin-bottom: 8px;
+  }
+
+  .auth-form-side {
+    flex: 1;
+    align-items: flex-start;
+    padding: 35px 24px;
+  }
+
+  .auth-tabs {
+    margin-bottom: 28px;
+  }
+
+  .auth-heading h1 {
+    font-size: 27px;
+  }
+}

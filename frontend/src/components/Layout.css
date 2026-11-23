@@ -1,0 +1,34 @@
+.app-layout {
+  min-height: 100vh;
+}
+
+.page-main {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+
+.auth-main {
+  min-height: 100vh;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .page-main {
+    padding: 25px 24px;
+  }
+}
+
+@media (max-width: 650px) {
+  .auth-main {
+    padding: 0;
+    align-items: stretch;
+  }
+
+  .page-main {
+    padding: 22px 16px;
+  }
+}
