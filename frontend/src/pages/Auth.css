@@ -1,4 +1,3 @@
-/* Auth shell */
 .auth-container {
   display: grid;
   grid-template-columns: minmax(240px, 1fr) minmax(400px, 1.5fr);
@@ -10,7 +9,9 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background: var(--ink);
+  background:
+    linear-gradient(180deg, rgba(20, 18, 16, 0.65), rgba(20, 18, 16, 0.25) 45%, rgba(20, 18, 16, 0.75)),
+    url('/images/auth-background.jpg') center / cover no-repeat;
 }
 
 .auth-brand {
@@ -36,7 +37,6 @@
   filter: brightness(0) invert(1);
 }
 
-/* Form area */
 .auth-form-side {
   display: flex;
   align-items: center;
@@ -202,4 +202,26 @@
     min-height: 0;
     padding: 45px 24px;
   }
+}
+
+@media (max-width: 650px) {
+  .auth-container { min-height: 100dvh; }
+  .auth-visual {
+    flex: 0 0 70px;
+    min-height: 70px;
+    background: var(--ink);
+  }
+  .auth-brand { min-height: 70px; padding: 16px 20px; }
+  .auth-brand-name { font-size: 17px; }
+  .auth-form-side {
+    align-items: flex-start;
+    min-height: calc(100dvh - 70px);
+    padding: clamp(70px, 17vh, 140px) 20px 36px;
+  }
+  .auth-form-wrapper { max-width: 420px; }
+  .auth-tabs { display: none; }
+  .auth-heading h1 { font-size: 27px; }
+  .auth-form { gap: 15px; }
+  .form-group input, .form-group select { min-height: 43px; }
+  .auth-switch { margin-top: 22px; }
 }

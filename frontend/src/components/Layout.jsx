@@ -1,14 +1,15 @@
 
 import { Outlet, useLocation } from 'react-router-dom'
 import Navbar from './Navbar.jsx'
+import MobileNav from './MobileNav.jsx'
 import './Layout.css'
 
 export default function Layout() {
-  const location = useLocation()
+  const { pathname } = useLocation()
 
   const isAuthPage =
-    location.pathname === '/login' ||
-    location.pathname === '/register'
+    pathname === '/login' ||
+    pathname === '/register'
 
   return (
     <div className="app-layout">
@@ -17,6 +18,8 @@ export default function Layout() {
       <main className={isAuthPage ? 'auth-main' : 'page-main'}>
         <Outlet />
       </main>
+
+      {!isAuthPage && <MobileNav />}
     </div>
   )
 }

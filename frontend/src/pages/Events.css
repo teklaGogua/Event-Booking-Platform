@@ -1,7 +1,6 @@
 .events-page {
   width: 100%;
 }
-
 .events-page__header {
   display: flex;
   justify-content: space-between;
@@ -9,12 +8,10 @@
   gap: 24px;
   margin-bottom: 24px;
 }
-
 .events-page__header h1 {
   font-size: 27px;
   line-height: 34px;
 }
-
 .events-search {
   display: flex;
   align-items: center;
@@ -25,13 +22,11 @@
   border-radius: 24px;
   background: #fff;
 }
-
 .events-search img {
   width: 16px;
   height: 16px;
   flex-shrink: 0;
 }
-
 .events-search input {
   min-width: 0;
   flex: 1;
@@ -40,12 +35,10 @@
   background: transparent;
   font-size: 12px;
 }
-
 .events-search:focus-within {
   outline: 2px solid var(--main);
   outline-offset: 2px;
 }
-
 .events-search button {
   border: 0;
   background: transparent;
@@ -53,19 +46,14 @@
   font-size: 11px;
   font-weight: 700;
 }
-
-/* Category Filters */
-
 .events-filters {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
   margin-bottom: 22px;
 }
-
 .events-filter {
   --filter-color: var(--main);
-
   display: flex;
   align-items: center;
   justify-content: center;
@@ -79,65 +67,51 @@
   font-size: 12px;
   font-weight: 700;
 }
-
 .events-filter img {
   width: 14px;
   height: 14px;
   object-fit: contain;
 }
-
 .events-filter--concert {
   --filter-color: var(--cat-concert);
 }
-
 .events-filter--conference {
   --filter-color: var(--cat-conference);
 }
-
 .events-filter--meetup {
   --filter-color: var(--cat-meetup);
 }
-
 .events-filter--sports {
   --filter-color: var(--cat-sports);
 }
-
 .events-filter--workshop {
   --filter-color: var(--cat-workshop);
 }
-
 .events-filter.is-active {
   background: var(--filter-color);
 }
-
 .events-filter--conference.is-active {
   color: #fff;
 }
-
 .events-filter:hover:not(.is-active) {
   background: var(--paper-dark);
 }
-
 .events-filter:focus-visible {
   outline: 2px solid var(--main);
   outline-offset: 2px;
 }
-
 .events-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 20px;
 }
-
 .events-message {
   padding: 28px 0;
   color: var(--ink-700);
 }
-
 .events-message--error {
   color: var(--error);
 }
-
 .events-pagination {
   display: flex;
   align-items: center;
@@ -146,47 +120,130 @@
   gap: 16px;
   margin-top: 26px;
 }
-
 .events-pagination button {
   padding: 8px 15px;
   border: 1px solid var(--line-strong);
   border-radius: 6px;
   background: var(--surface);
 }
-
 .events-pagination button:not(:disabled):hover {
   border-color: var(--main);
 }
-
 @media (max-width: 1050px) {
-  .events-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-}
-
+  .events-grid { grid-template-columns: repeat(3, minmax(0, 1fr));
+} }
 @media (max-width: 750px) {
-  .events-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 14px;
-  }
+  .events-grid { grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+} .events-page__header { align-items: stretch; flex-direction: column; gap: 16px; } .events-search { width: 100%; } }
+@media (max-width: 460px) {
+  .events-grid { grid-template-columns: 1fr;
+} .events-page__header h1 { font-size: 24px; } }
 
-  .events-page__header {
-    align-items: stretch;
+/* ========================================
+   Commit 2 — Mobile event discovery
+======================================== */
+.events-mobile-location,
+.events-mobile-section-title { display: none; }
+
+@media (max-width: 650px) {
+  .events-page { min-width: 0; }
+
+  .events-mobile-location {
+    display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 2px;
+    padding: 17px 18px 8px;
+    background: var(--main);
+    color: #fff;
   }
+  .events-mobile-location > span {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    opacity: .9;
+  }
+  .events-mobile-location strong { font-size: 14px; }
+  .events-page__header {
+    margin-bottom: 0;
+    padding: 8px 14px 19px;
+    border-radius: 0 0 22px 22px;
+    background: var(--main);
+  }
+  .events-page__header h1 { display: none; }
+  .events-search { min-height: 42px; border-radius: 999px; }
+  .events-search input { font-size: 12px; }
+  .events-search button { color: var(--ink-700); }
 
-  .events-search {
-    width: 100%;
+  .events-filters {
+    flex-wrap: nowrap;
+    gap: 8px;
+    overflow-x: auto;
+    margin: 14px 0 18px;
+    padding: 0 16px 4px;
+    scrollbar-width: none;
+    scroll-snap-type: x proximity;
   }
+  .events-filters::-webkit-scrollbar { display: none; }
+  .events-filter {
+    flex-shrink: 0;
+    min-height: 32px;
+    padding-inline: 12px;
+    white-space: nowrap;
+    scroll-snap-align: start;
+  }
+  .events-mobile-section-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin: 0 16px 10px;
+  }
+  .events-mobile-section-title h2 { font-size: 16px; line-height: 22px; }
+  .events-mobile-section-title button {
+    border: 0;
+    background: transparent;
+    color: var(--main);
+    font-size: 11px;
+  }
+  .events-grid {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    padding: 0 16px 12px;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: thin;
+  }
+  .events-grid > .event-card {
+    flex: 0 0 min(78vw, 290px);
+    scroll-snap-align: start;
+  }
+  .events-message { padding: 20px 16px; }
+  .events-pagination { margin: 12px 16px 0; }
 }
 
-@media (max-width: 460px) {
-  .events-grid {
-    grid-template-columns: 1fr;
+/* Figma mobile refinement: search-only header and carousel */
+@media (max-width: 650px) {
+  .events-page__header {
+    padding: 18px 14px 19px;
   }
 
-  .events-page__header h1 {
-    font-size: 24px;
+  .events-filters {
+    margin-top: 13px;
+    margin-bottom: 15px;
+  }
+
+  .events-grid {
+    padding-bottom: 16px;
+    scrollbar-width: none;
+  }
+
+  .events-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .events-grid > .event-card {
+    flex-basis: min(80vw, 300px);
   }
 }

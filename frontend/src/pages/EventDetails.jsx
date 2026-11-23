@@ -122,6 +122,7 @@ export default function EventDetails() {
 
       <div className="event-details-content">
         <div className="event-details-main">
+          <h2 className="event-details-mobile-title">{event.title}</h2>
           <div className="event-details-info">
             <div className="event-details-info-item">
               <span className="event-details-info-icon"><img src="/icons/calendar.svg" alt="" /></span>
@@ -138,11 +139,16 @@ export default function EventDetails() {
               </div>
             </div>
           </div>
+          {event.organizer_name && (
+            <p className="event-details-organizer">
+              <strong>{event.organizer_name}</strong>
+              <span>Organizer</span>
+            </p>
+          )}
           <section className="event-details-about">
-            <h2>About this event</h2>
+            <h2>About event</h2>
             <p>{event.description || 'No description yet.'}</p>
           </section>
-          {event.organizer_name && <p className="event-details-organizer">Organized by <strong>{event.organizer_name}</strong></p>}
           {past && validDate && <p className="event-details-notice">This event has already happened.</p>}
           {registered && <p className="event-details-notice event-details-notice--success">You are registered for this event.</p>}
           {message && <p role="status" className={`event-details-notice event-details-notice--${message.type}`}>{message.text}</p>}

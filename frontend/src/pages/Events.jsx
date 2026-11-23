@@ -67,7 +67,7 @@ export default function Events() {
         <h1 id="events-title">What’s on in Tbilisi</h1>
         <form className="events-search" role="search" onSubmit={handleSearch}>
           <img src="/icons/search.svg" alt="" aria-hidden="true" />
-          <input type="search" aria-label="Search events or venues" placeholder="Search events" value={searchText} onChange={(event) => setSearchText(event.target.value)} />
+          <input type="search" aria-label="Search events or venues" placeholder="Search events or venues" value={searchText} onChange={(event) => setSearchText(event.target.value)} />
           <button type="submit">Search</button>
         </form>
       </div>
@@ -84,6 +84,10 @@ export default function Events() {
             </button>
           )
         })}
+      </div>
+      <div className="events-mobile-section-title">
+        <h2>Upcoming events</h2>
+        <button type="button" onClick={() => { chooseCategory(''); setSearch(''); setSearchText('') }}>See all</button>
       </div>
       {categoryError && <p className="events-message" role="status">Categories could not be loaded. All events are still available.</p>}
 
