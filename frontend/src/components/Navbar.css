@@ -143,10 +143,6 @@
   outline-offset: 3px;
 }
 
-.mobile-menu-button {
-  display: none;
-}
-
 @media (max-width: 900px) {
   .navbar {
     gap: 20px;
@@ -161,63 +157,5 @@
 @media (max-width: 768px) {
   .site-header {
     display: none;
-  }
-
-  .mobile-menu-button {
-    display: none;
-  }
-}
-
-@media (max-width: 650px) {
-  .navbar {
-    justify-content: space-between;
-    min-height: 60px;
-    padding: 0 20px;
-  }
-
-  .mobile-menu-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 36px;
-    height: 36px;
-    border: 0;
-    background: transparent;
-    font-size: 24px;
-  }
-
-  .nav-content {
-    display: none;
-    position: absolute;
-    top: 100%;
-    right: 0;
-    left: 0;
-    padding: 16px 20px 20px;
-    border-bottom: 1px solid var(--line);
-    background: var(--surface);
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.06);
-  }
-
-  .nav-content.nav-open {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 20px;
-  }
-
-  .nav-links {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0;
-  }
-
-  .nav-link {
-    min-height: 44px;
-    border-bottom: 1px solid var(--line);
-  }
-
-  .nav-user {
-    justify-content: flex-start;
-    flex-wrap: wrap;
   }
 }
