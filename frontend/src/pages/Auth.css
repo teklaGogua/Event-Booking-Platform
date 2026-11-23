@@ -130,6 +130,23 @@
   outline: 2px solid var(--main-tint);
 }
 
+
+.form-group input:not(:placeholder-shown):invalid {
+  border-color: var(--error);
+  background-color: var(--error-tint);
+}
+
+.form-group input:not(:placeholder-shown):invalid:focus-visible {
+  border-color: var(--error);
+  outline: 2px solid var(--error-tint);
+}
+
+.form-group input:valid:focus-visible {
+  border-color: var(--main);
+  outline: 2px solid var(--main-tint);
+}
+
+
 .form-group small {
   color: var(--ink-500);
   font-size: 11px;
