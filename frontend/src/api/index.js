@@ -8,7 +8,14 @@ export const auth = {
 }
 
 export const events = {
-  list: (params = {}) => api(`/events?${new URLSearchParams(params)}`),
+  list: (params = {}) => {
+    const cleanParams = Object.fromEntries(
+      Object.entries(params).filter(
+        ([, value]) => value !== undefined && value !== null && value !== ''
+      )
+    )
+    return api(`/events?${new URLSearchParams(cleanParams)}`)
+  },
   get: (id) => api(`/events/${id}`),
   create: (body) => api('/events', { method: 'POST', body }),
   update: (id, body) => api(`/events/${id}`, { method: 'PUT', body }),
