@@ -3,111 +3,167 @@ import { Link, useParams } from 'react-router-dom'
 import { events as eventsApi } from '../api/index.js'
 import { useAuth } from '../context/AuthContext.jsx'
 import ConfirmDialog from '../components/ConfirmDialog.jsx'
-import { formatDate, isPast } from '../lib/format.js'
+import { isPast } from '../lib/format.js'
+import './EventDetails.css'
+
+const categoryStyles = new Set(['concert', 'conference', 'meetup', 'sports', 'workshop'])
+const dateParts = (date, options) => new Intl.DateTimeFormat('en-GB', {
+  ...options,
+  timeZone: 'Asia/Tbilisi',
+}).format(date)
 
 export default function EventDetails() {
   const { id } = useParams()
   const { user } = useAuth()
-
   const [event, setEvent] = useState(null)
   const [status, setStatus] = useState('loading')
   const [busy, setBusy] = useState(false)
   const [message, setMessage] = useState(null)
   const [confirming, setConfirming] = useState(false)
 
-  const load = useCallback(() => {
-    return eventsApi.get(id)
+  const load = useCallback(async () => {
+    const data = await eventsApi.get(id)
+    setEvent(data.event)
+    setStatus('ready')
+  }, [id])
+
+  useEffect(() => {
+    let active = true
+    eventsApi.get(id)
       .then((data) => {
+        if (!active) return
         setEvent(data.event)
         setStatus('ready')
       })
-      .catch((err) => setStatus(err.status === 404 ? 'missing' : 'error'))
-  }, [id])
+      .catch((error) => {
+        if (active) setStatus(error.status === 404 ? 'missing' : 'error')
+      })
+    return () => { active = false }
+  }, [id, user?.id])
 
-  // Load on first visit, and again if the logged-in user changes
-  useEffect(() => {
-    load()
-  }, [load, user?.id])
-
-  // Runs register or cancel, then reloads the event so the numbers are fresh
   const run = async (action, successText) => {
+    if (busy) return
     setBusy(true)
     setMessage(null)
     try {
       await action(id)
-      await load()
-      setMessage({ type: 'success', text: successText })
-    } catch (err) {
-      setMessage({ type: 'error', text: err.message })
+      try {
+        await load()
+        setMessage({ type: 'success', text: successText })
+      } catch {
+        setMessage({ type: 'success', text: `${successText} Event information could not be refreshed.` })
+      }
+    } catch (error) {
+      setMessage({ type: 'error', text: error.message || 'Something went wrong.' })
     } finally {
       setBusy(false)
       setConfirming(false)
     }
   }
 
-  if (status === 'loading') return <p>Loading…</p>
-  if (status === 'missing') return <p>This event doesn’t exist.</p>
-  if (status === 'error') return <p>Couldn’t load this event.</p>
+  if (status === 'loading') return <p className="event-details-message" role="status">Loading event…</p>
+  if (status === 'missing') return <p className="event-details-message">This event doesn't exist.</p>
+  if (status === 'error' || !event) return <p className="event-details-message" role="alert">Couldn't load this event.</p>
 
+  const category = event.category_name?.trim().toLowerCase() || ''
+  const color = categoryStyles.has(category) ? category : 'default'
+  const date = new Date(event.event_date)
+  const validDate = !Number.isNaN(date.getTime())
+  const dateOptions = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }
+  const timeOptions = { hour: '2-digit', minute: '2-digit', hour12: false }
   const registered = event.my_registration === 'registered'
-  const past = isPast(event.event_date)
+  const past = !validDate || isPast(event.event_date)
+  const spotsLeft = Math.max(0, Number(event.spots_left) || 0)
+  const attendeeCount = Number(event.registered_count)
 
-  // Decide which action area to show
   let action
   if (!user) {
-    action = <Link to="/login">Log in to register</Link>
+    action = <Link to="/login" className="event-details-action">Log in to register</Link>
   } else if (user.role !== 'attendee') {
-    action = <p>Only attendee accounts can register for events.</p>
+    action = <p className="event-details-action-note">Only attendee accounts can register for events.</p>
   } else if (registered) {
     action = (
-      <button onClick={() => setConfirming(true)} disabled={busy || past}>
+      <button type="button" className="event-details-action event-details-action--cancel"
+        disabled={busy || past} onClick={() => setConfirming(true)}>
         Cancel registration
       </button>
     )
   } else {
     action = (
-      <button
-        onClick={() => run(eventsApi.register, 'You are registered. See you there!')}
-        disabled={busy || event.is_full || past}
-      >
-        {event.is_full ? 'Event is full' : 'Register'}
+      <button type="button" className="event-details-action" disabled={busy || event.is_full || past}
+        onClick={() => run(eventsApi.register, 'You are registered. See you there!')}>
+        {busy ? 'Registering…' : past ? 'Event unavailable' : event.is_full ? 'Event is full' : 'Register'}
+        <span className="event-details-action__arrow" aria-hidden="true">→</span>
       </button>
     )
   }
 
   return (
-    <div>
-      <p><Link to="/">← All events</Link></p>
+    <article className={`event-details event-details--${color}`}>
+      <header className="event-details-hero">
+        <Link to="/" className="event-details-back">
+          <img src="/icons/arrowLeft.svg" alt="" />
+          All events
+        </Link>
+        <div className="event-details-hero__content">
+          <div className="event-details-date">
+            <strong>{validDate ? dateParts(date, { day: '2-digit' }) : '—'}</strong>
+            <span>{validDate ? dateParts(date, { month: 'short' }) : ''}</span>
+          </div>
+          <div className="event-details-hero__title">
+            <span className="event-details-category">{event.category_name || 'Event'}</span>
+            <h1>{event.title}</h1>
+          </div>
+          {Number.isFinite(attendeeCount) && (
+            <span className="event-details-attendees">+{attendeeCount} going</span>
+          )}
+        </div>
+      </header>
 
-      <h1>{event.title}</h1>
-      <p>{event.category_name}</p>
-      <p>{formatDate(event.event_date)}</p>
-      <p>{event.venue_name}, {event.venue_address}, {event.venue_city}</p>
-      <p>{event.description || 'No description yet.'}</p>
-      <p>Organized by {event.organizer_name}</p>
-
-      <p>
-        {event.is_full
-          ? 'No spots left'
-          : `${event.spots_left} of ${event.capacity} spots left`}
-      </p>
-
-      {past && <p>This event has already happened.</p>}
-      {registered && <p>You are registered for this event.</p>}
-      {message && <p role="status">{message.text}</p>}
-
-      {action}
-
+      <div className="event-details-content">
+        <div className="event-details-main">
+          <div className="event-details-info">
+            <div className="event-details-info-item">
+              <span className="event-details-info-icon"><img src="/icons/calendar.svg" alt="" /></span>
+              <div>
+                <strong>{validDate ? dateParts(date, dateOptions) : 'Date unavailable'}</strong>
+                <span>{validDate ? dateParts(date, timeOptions) : 'Time unavailable'}</span>
+              </div>
+            </div>
+            <div className="event-details-info-item">
+              <span className="event-details-info-icon"><img src="/icons/pin.svg" alt="" /></span>
+              <div>
+                <strong>{event.venue_name || 'Venue to be announced'}</strong>
+                <span>{[event.venue_address, event.venue_city].filter(Boolean).join(', ') || 'Location unavailable'}</span>
+              </div>
+            </div>
+          </div>
+          <section className="event-details-about">
+            <h2>About this event</h2>
+            <p>{event.description || 'No description yet.'}</p>
+          </section>
+          {event.organizer_name && <p className="event-details-organizer">Organized by <strong>{event.organizer_name}</strong></p>}
+          {past && validDate && <p className="event-details-notice">This event has already happened.</p>}
+          {registered && <p className="event-details-notice event-details-notice--success">You are registered for this event.</p>}
+          {message && <p role="status" className={`event-details-notice event-details-notice--${message.type}`}>{message.text}</p>}
+        </div>
+        <aside className="event-details-sidebar">
+          <div className="event-details-booking">
+            <span className="event-details-booking__label">Seats left</span>
+            <strong className="event-details-booking__count">{spotsLeft}</strong>
+            {event.capacity != null && <p className="event-details-booking__capacity">Capacity: {event.capacity}</p>}
+            <div className="event-details-booking__divider" />
+            {action}
+          </div>
+        </aside>
+      </div>
       {confirming && (
-        <ConfirmDialog
-          title="Cancel your registration?"
+        <ConfirmDialog title="Cancel your registration?"
           message="Your spot will be released for someone else."
-          confirmLabel="Cancel registration"
-          busy={busy}
+          confirmLabel="Cancel registration" busy={busy}
           onConfirm={() => run(eventsApi.cancel, 'Your registration was cancelled.')}
-          onCancel={() => setConfirming(false)}
-        />
+          onCancel={() => setConfirming(false)} />
       )}
-    </div>
+    </article>
   )
 }

@@ -1,59 +1,64 @@
+/* Header */
 .site-header {
   position: sticky;
   top: 0;
   z-index: 100;
   width: 100%;
-  background: white;
+  background: var(--surface);
   border-bottom: 1px solid var(--line);
 }
 
 .navbar {
-  max-width: 1440px;
-  min-height: 64px;
-  margin: 0 auto;
-  padding: 0 40px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 30px;
+  max-width: 1440px;
+  min-height: 56px;
+  margin: 0 auto;
+  padding: 0 40px;
 }
 
+/* Brand */
 .brand {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 9px;
   flex-shrink: 0;
   font-family: var(--font-heading);
-  font-size: 19px;
+  font-size: 16px;
   font-weight: 700;
-  color: var(--ink);
 }
 
 .brand-icon {
-  color: var(--main);
-  font-size: 27px;
+  width: 21px;
+  height: 21px;
+  object-fit: contain;
 }
 
+/* Navigation */
 .nav-content {
-  flex: 1;
   display: flex;
+  flex: 1;
   align-items: center;
   justify-content: space-between;
+  gap: 24px;
+  min-width: 0;
 }
 
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 28px;
-  margin-left: 35px;
+  gap: 26px;
 }
 
 .nav-link {
-  padding: 22px 0;
+  display: inline-flex;
+  align-items: center;
+  min-height: 56px;
   color: var(--ink-700);
   font-size: 12px;
   font-weight: 500;
-  transition: color 0.2s;
+  white-space: nowrap;
 }
 
 .nav-link:hover,
@@ -61,36 +66,56 @@
   color: var(--main);
 }
 
+/* User */
 .nav-user {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   gap: 12px;
+  flex-shrink: 0;
 }
 
 .nav-user-name {
   color: var(--ink-700);
   font-size: 12px;
+  white-space: nowrap;
 }
 
 .role-badge {
-  padding: 5px 9px;
-  border-radius: 4px;
+  padding: 4px 8px;
+  border-radius: 3px;
   background: var(--paper-dark);
   color: var(--ink-700);
   font-size: 9px;
   font-weight: 700;
+  letter-spacing: 0.5px;
   text-transform: uppercase;
-  letter-spacing: 0.4px;
+}
+
+.role-badge--organizer {
+  background: var(--ink);
+  color: var(--surface);
+}
+
+.role-badge--admin {
+  background: var(--main);
+  color: var(--surface);
 }
 
 .logout-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   width: 32px;
   height: 32px;
-  border: none;
-  border-radius: 50%;
+  border: 0;
+  border-radius: 6px;
   background: transparent;
-  color: var(--ink-700);
-  font-size: 20px;
+}
+
+.logout-button img {
+  width: 18px;
+  height: 18px;
 }
 
 .logout-button:hover {
@@ -104,10 +129,10 @@
 }
 
 .nav-register {
-  padding: 9px 16px;
+  padding: 8px 14px;
   border-radius: 5px;
   background: var(--main);
-  color: white;
+  color: #fff;
   font-size: 12px;
   font-weight: 600;
 }
@@ -116,47 +141,55 @@
   background: var(--main-hover);
 }
 
+.navbar a:focus-visible,
+.navbar button:focus-visible {
+  outline: 2px solid var(--main);
+  outline-offset: 3px;
+}
+
 .mobile-menu-button {
   display: none;
 }
 
-/* Responsive navbar */
-
+/* Temporary mobile menu — replaced by bottom navigation in Commit 2 */
 @media (max-width: 900px) {
   .navbar {
+    gap: 20px;
     padding: 0 24px;
   }
 
   .nav-links {
     gap: 18px;
-    margin-left: 20px;
   }
 }
 
 @media (max-width: 650px) {
   .navbar {
+    justify-content: space-between;
     min-height: 60px;
     padding: 0 20px;
   }
 
   .mobile-menu-button {
-    display: block;
-    border: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border: 0;
     background: transparent;
-    color: var(--ink);
-    font-size: 25px;
-    padding: 5px;
+    font-size: 24px;
   }
 
   .nav-content {
     display: none;
     position: absolute;
-    top: 60px;
-    left: 0;
+    top: 100%;
     right: 0;
-    padding: 20px;
-    background: white;
+    left: 0;
+    padding: 16px 20px 20px;
     border-bottom: 1px solid var(--line);
+    background: var(--surface);
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.06);
   }
 
@@ -168,20 +201,18 @@
   }
 
   .nav-links {
-    display: flex;
     flex-direction: column;
     align-items: stretch;
     gap: 0;
-    margin: 0;
   }
 
   .nav-link {
-    padding: 12px 0;
+    min-height: 44px;
     border-bottom: 1px solid var(--line);
   }
 
   .nav-user {
-    flex-wrap: wrap;
     justify-content: flex-start;
+    flex-wrap: wrap;
   }
 }

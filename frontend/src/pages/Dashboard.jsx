@@ -1,106 +1,152 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { events } from '../api/index.js'
-import { formatDate } from '../lib/format.js'
 import ConfirmDialog from '../components/ConfirmDialog.jsx'
 import { useAuth } from '../context/AuthContext.jsx'
+import './Dashboard.css'
+
+const dayFormat = new Intl.DateTimeFormat('en-GB', {
+  day: 'numeric',
+  timeZone: 'Asia/Tbilisi',
+})
+const monthFormat = new Intl.DateTimeFormat('en-GB', {
+  month: 'short',
+  timeZone: 'Asia/Tbilisi',
+})
+const weekdayFormat = new Intl.DateTimeFormat('en-GB', {
+  weekday: 'short',
+  timeZone: 'Asia/Tbilisi',
+})
+const dateTimeFormat = new Intl.DateTimeFormat('en-GB', {
+  weekday: 'short',
+  day: 'numeric',
+  month: 'short',
+  year: 'numeric',
+  hour: '2-digit',
+  minute: '2-digit',
+  hour12: false,
+  timeZone: 'Asia/Tbilisi',
+})
+
+function EventDate({ iso }) {
+  const date = new Date(iso)
+  if (Number.isNaN(date.getTime())) {
+    return <div className="dashboard-event__date dashboard-event__date--unknown">Date TBA</div>
+  }
+
+  return (
+    <div className="dashboard-event__date" aria-label={dateTimeFormat.format(date)}>
+      <span>{monthFormat.format(date)}</span>
+      <strong>{dayFormat.format(date)}</strong>
+      <span>{weekdayFormat.format(date)}</span>
+    </div>
+  )
+}
 
 export default function Dashboard() {
   const { user } = useAuth()
-
   const [myEvents, setMyEvents] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
   const [selectedEvent, setSelectedEvent] = useState(null)
   const [deleteBusy, setDeleteBusy] = useState(false)
 
-  // Load the organizer's events
-  const loadEvents = async () => {
+  const loadEvents = useCallback(async () => {
     try {
-      setLoading(true)
-      const data = await events.mine()
-      setMyEvents(data.data)
+      setError('')
+      const result = await events.mine()
+      setMyEvents(Array.isArray(result.data) ? result.data : [])
     } catch (err) {
-      setError(err.message)
+      setError(err.message || 'Could not load your events.')
     } finally {
       setLoading(false)
     }
-  }
-
-  useEffect(() => {
-    loadEvents()
   }, [])
 
-  // Delete an event
+  useEffect(() => {
+    void loadEvents()
+  }, [loadEvents])
+
   const handleDelete = async () => {
-    if (!selectedEvent) return
+    if (!selectedEvent || deleteBusy) return
 
     try {
       setDeleteBusy(true)
+      setError('')
       await events.delete(selectedEvent.id)
-
+      setMyEvents((previous) => previous.filter((item) => item.id !== selectedEvent.id))
       setSelectedEvent(null)
-      await loadEvents()
     } catch (err) {
-      setError(err.message)
+      setError(err.message || 'Could not delete this event.')
     } finally {
       setDeleteBusy(false)
     }
   }
 
   return (
-    <div>
-      <h1>Dashboard</h1>
+    <section className="dashboard-page">
+      <header className="dashboard-page__header">
+        <div>
+          <h1>Dashboard</h1>
+          <p>Welcome, {user?.name || 'Organizer'}!</p>
+        </div>
+        <Link className="dashboard-page__create" to="/events/new">
+          Create new event
+        </Link>
+      </header>
 
-      <p>Welcome, {user?.name}!</p>
+      <div className="dashboard-page__section-title">
+        <h2>My events</h2>
+        {!loading && !error && <span>{myEvents.length} {myEvents.length === 1 ? 'event' : 'events'}</span>}
+      </div>
 
-      <Link to="/events/new">
-        <button>Create new event</button>
-      </Link>
-
-      <h2>My events</h2>
-
-      {loading && <p>Loading events…</p>}
-
-      {error && <p role="alert">{error}</p>}
-
-      {!loading && myEvents.length === 0 && (
-        <p>You haven't created any events yet.</p>
+      {loading && <p className="dashboard-page__message" role="status">Loading events…</p>}
+      {error && <p className="dashboard-page__message dashboard-page__message--error" role="alert">{error}</p>}
+      {!loading && myEvents.length === 0 && !error && (
+        <div className="dashboard-page__empty">
+          <p>You haven't created any events yet.</p>
+          <Link to="/events/new">Create your first event</Link>
+        </div>
       )}
 
       {!loading && myEvents.length > 0 && (
-        <div>
-          {myEvents.map((event) => (
-            <article key={event.id}>
-              <h3>{event.title}</h3>
+        <div className="dashboard-events">
+          {myEvents.map((event) => {
+            const date = new Date(event.event_date)
+            const dateText = Number.isNaN(date.getTime()) ? 'Date to be announced' : dateTimeFormat.format(date)
 
-              <p>{formatDate(event.event_date)}</p>
+            return (
+              <article className="dashboard-event" key={event.id}>
+                <EventDate iso={event.event_date} />
 
-              <p>
-                {event.venue_name}, {event.venue_city}
-              </p>
+                <div className="dashboard-event__info">
+                  <h3>{event.title}</h3>
+                  <div className="dashboard-event__meta">
+                    <span>
+                      <img src="/icons/pin.svg" alt="" />
+                      {[event.venue_name, event.venue_city].filter(Boolean).join(', ') || 'Venue to be announced'}
+                    </span>
+                    <span>
+                      <img src="/icons/calendar.svg" alt="" />
+                      {dateText}
+                    </span>
+                  </div>
+                </div>
 
-              <p>
-                Registered: {event.registered_count} / {event.capacity}
-              </p>
+                <div className="dashboard-event__registrations">
+                  <span>Registered</span>
+                  <strong>{event.registered_count ?? 0} / {event.capacity ?? '—'}</strong>
+                </div>
 
-              <Link to={`/events/${event.id}`}>
-                View event
-              </Link>
-
-              <Link to={`/events/${event.id}/edit`}>
-                Edit
-              </Link>
-
-              <Link to={`/events/${event.id}/attendees`}>
-                View attendees
-              </Link>
-
-              <button onClick={() => setSelectedEvent(event)}>
-                Delete
-              </button>
-            </article>
-          ))}
+                <div className="dashboard-event__actions">
+                  <Link className="dashboard-event__button" to={`/events/${event.id}`}>View event</Link>
+                  <Link className="dashboard-event__button dashboard-event__button--plain" to={`/events/${event.id}/edit`}>Edit</Link>
+                  <Link className="dashboard-event__button" to={`/events/${event.id}/attendees`}>View attendees</Link>
+                  <button className="dashboard-event__button dashboard-event__button--danger" type="button" onClick={() => setSelectedEvent(event)}>Delete</button>
+                </div>
+              </article>
+            )
+          })}
         </div>
       )}
 
@@ -111,9 +157,9 @@ export default function Dashboard() {
           confirmLabel="Delete event"
           busy={deleteBusy}
           onConfirm={handleDelete}
-          onCancel={() => setSelectedEvent(null)}
+          onCancel={() => { if (!deleteBusy) setSelectedEvent(null) }}
         />
       )}
-    </div>
+    </section>
   )
 }

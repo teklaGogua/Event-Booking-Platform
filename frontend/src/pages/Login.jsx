@@ -33,6 +33,7 @@ export default function Login() {
       <section className="auth-visual">
         <div className="auth-brand">
           <Link to="/" className="auth-brand-name">
+            <img src="/icons/ticket.svg" alt="" />
             EventHub
           </Link>
         </div>

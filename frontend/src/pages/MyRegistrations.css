@@ -1,0 +1,165 @@
+/* Ticket list */
+.bookings-page {
+  width: 100%;
+}
+
+.bookings-page h1 {
+  margin-bottom: 24px;
+  font-size: 28px;
+}
+
+.bookings-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: start;
+  gap: 22px;
+}
+
+.bookings-status,
+.bookings-alert {
+  margin-top: 18px;
+  font-size: 13px;
+}
+
+.bookings-alert {
+  color: var(--error);
+}
+
+.bookings-status a {
+  color: var(--main);
+  text-decoration: underline;
+}
+
+/* Ticket cards */
+.booking-ticket {
+  --ticket-color: var(--main);
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  background: var(--surface);
+}
+
+.booking-ticket--concert { --ticket-color: var(--cat-concert); }
+.booking-ticket--conference { --ticket-color: var(--cat-conference); }
+.booking-ticket--meetup { --ticket-color: var(--cat-meetup); }
+.booking-ticket--sports { --ticket-color: var(--cat-sports); }
+.booking-ticket--workshop { --ticket-color: var(--cat-workshop); }
+
+.booking-ticket__banner {
+  min-height: 135px;
+  padding: 18px;
+  background: var(--ticket-color);
+}
+
+.booking-ticket__eyebrow {
+  display: block;
+  margin-bottom: 14px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.7px;
+  text-transform: uppercase;
+}
+
+.booking-ticket__banner h2 {
+  font-size: clamp(19px, 2vw, 28px);
+  line-height: 1.05;
+  font-weight: 800;
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+}
+
+.booking-ticket--conference .booking-ticket__banner h2,
+.booking-ticket--conference .booking-ticket__eyebrow {
+  color: #fff;
+}
+
+.booking-ticket__body {
+  position: relative;
+  padding: 21px 18px 15px;
+}
+
+.booking-ticket__tear {
+  position: absolute;
+  top: 8px;
+  right: 18px;
+  left: 18px;
+  border-top: 1px dashed var(--line-strong);
+}
+
+.booking-ticket__tear::before,
+.booking-ticket__tear::after {
+  position: absolute;
+  top: -15px;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: var(--paper);
+  content: '';
+}
+
+.booking-ticket__tear::before { left: -26px; }
+.booking-ticket__tear::after { right: -26px; }
+
+.booking-ticket__metadata {
+  display: flex;
+  gap: 26px;
+  margin-bottom: 12px;
+}
+
+.booking-ticket__label {
+  display: block;
+  margin-bottom: 3px;
+  color: var(--ink-500);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+}
+
+.booking-ticket__metadata strong {
+  font-size: 12px;
+}
+
+.booking-ticket__venue {
+  min-height: 26px;
+  font-size: 11px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.booking-ticket__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 12px;
+  padding-top: 11px;
+  border-top: 1px solid var(--line);
+}
+
+.booking-ticket__footer a,
+.booking-ticket__footer button {
+  border: 0;
+  background: transparent;
+  color: var(--main);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.booking-ticket__footer button {
+  color: var(--error);
+}
+
+@media (max-width: 1000px) {
+  .bookings-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .bookings-grid {
+    grid-template-columns: 1fr;
+  }
+}

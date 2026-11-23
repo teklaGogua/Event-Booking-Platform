@@ -35,6 +35,7 @@ export default function Register() {
       <section className="auth-visual">
         <div className="auth-brand">
           <Link to="/" className="auth-brand-name">
+            <img src="/icons/ticket.svg" alt="" />
             EventHub
           </Link>
         </div>
