@@ -14,6 +14,8 @@ export const events = {
   update: (id, body) => api(`/events/${id}`, { method: 'PUT', body }),
   register: (id) => api(`/events/${id}/register`, { method: 'POST' }),
   cancel: (id) => api(`/events/${id}/register`, { method: 'DELETE' }),
+  delete: (id) => api(`/events/${id}`, { method: 'DELETE' }),
+  mine: () => api('/events/mine'),
 }
 
 export const categories = {
