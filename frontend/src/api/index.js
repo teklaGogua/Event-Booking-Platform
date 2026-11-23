@@ -16,6 +16,7 @@ export const events = {
   cancel: (id) => api(`/events/${id}/register`, { method: 'DELETE' }),
   delete: (id) => api(`/events/${id}`, { method: 'DELETE' }),
   mine: () => api('/events/mine'),
+  attendees: (id) => api(`/events/${id}/attendees`),
 }
 
 export const categories = {

@@ -88,17 +88,15 @@ export default function Dashboard() {
                 View event
               </Link>
 
-              {' '}
-
               <Link to={`/events/${event.id}/edit`}>
                 Edit
               </Link>
 
-              {' '}
+              <Link to={`/events/${event.id}/attendees`}>
+                View attendees
+              </Link>
 
-              <button
-                onClick={() => setSelectedEvent(event)}
-              >
+              <button onClick={() => setSelectedEvent(event)}>
                 Delete
               </button>
             </article>

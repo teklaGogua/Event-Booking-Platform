@@ -8,6 +8,7 @@ import Register from './pages/Register.jsx'
 import MyRegistrations from './pages/MyRegistrations.jsx'
 import Dashboard from './pages/Dashboard.jsx'
 import EventForm from './pages/EventForm.jsx'
+import Attendees from './pages/Attendees.jsx'
 
 export default function App() {
   return (
@@ -47,6 +48,14 @@ export default function App() {
           element={
             <ProtectedRoute roles={['organizer', 'admin']}>
               <EventForm />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="events/:id/attendees"
+          element={
+            <ProtectedRoute roles={['organizer', 'admin']}>
+              <Attendees />
             </ProtectedRoute>
           }
         />
