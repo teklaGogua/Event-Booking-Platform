@@ -21,10 +21,16 @@ export const events = {
 
 export const categories = {
   list: () => api('/categories'),
+  create: (body) => api('/categories', { method: 'POST', body }),
+  update: (id, body) => api(`/categories/${id}`, { method: 'PUT', body }),
+  delete: (id) => api(`/categories/${id}`, { method: 'DELETE' }),
 }
 
 export const venues = {
   list: () => api('/venues'),
+  create: (body) => api('/venues', { method: 'POST', body }),
+  update: (id, body) => api(`/venues/${id}`, { method: 'PUT', body }),
+  delete: (id) => api(`/venues/${id}`, { method: 'DELETE' }),
 }
 
 export const registrations = {

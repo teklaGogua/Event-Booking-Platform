@@ -22,6 +22,12 @@ export default function Navbar() {
         {(user?.role === 'organizer' || user?.role === 'admin') && (
           <>{' | '}<NavLink to="/dashboard">Dashboard</NavLink></>
         )}
+        {user?.role === 'admin' && (
+          <>
+            {' | '}
+            <NavLink to="/admin">Admin</NavLink>
+          </>
+        )}
 
         <span style={{ float: 'right' }}>
           {user ? (
