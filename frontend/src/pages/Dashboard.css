@@ -1,13 +1,7 @@
-/* ========================================
-   Organizer Dashboard
-======================================== */
-
 .dashboard-page {
   width: 100%;
   min-width: 0;
 }
-
-/* Header */
 
 .dashboard-page__header {
   display: flex;
@@ -46,8 +40,6 @@
   background: var(--main-hover);
 }
 
-/* Section Title */
-
 .dashboard-page__section-title {
   display: flex;
   align-items: baseline;
@@ -67,8 +59,6 @@
   font-size: 12px;
 }
 
-/* Event List */
-
 .dashboard-events {
   display: grid;
   gap: 14px;
@@ -86,8 +76,6 @@
   border-radius: 12px;
   background: var(--surface);
 }
-
-/* Date Strip */
 
 .dashboard-event__date {
   display: flex;
@@ -121,8 +109,6 @@
   font-size: 11px;
   font-weight: 700;
 }
-
-/* Event Information */
 
 .dashboard-event__info {
   min-width: 0;
@@ -159,8 +145,6 @@
   object-fit: contain;
 }
 
-/* Registration Count */
-
 .dashboard-event__registrations {
   display: flex;
   flex-direction: column;
@@ -177,8 +161,6 @@
   font-size: 12px;
   font-weight: 700;
 }
-
-/* Event Actions */
 
 .dashboard-event__actions {
   display: flex;
@@ -230,8 +212,6 @@
   outline-offset: 3px;
 }
 
-/* Loading, Errors, and Empty States */
-
 .dashboard-page__message,
 .dashboard-page__empty {
   padding: 22px 0;
@@ -249,10 +229,6 @@
   font-weight: 700;
   text-decoration: underline;
 }
-
-/* ========================================
-   Responsive Layout
-======================================== */
 
 @media (max-width: 1180px) {
   .dashboard-event {

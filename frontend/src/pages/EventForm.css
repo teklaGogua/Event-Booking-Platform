@@ -1,4 +1,3 @@
-/* Event editor */
 .event-editor {
   width: 100%;
 }
@@ -27,7 +26,6 @@
   gap: 22px;
 }
 
-/* Form */
 .event-editor__form,
 .event-editor__sidebar {
   padding: 24px;
