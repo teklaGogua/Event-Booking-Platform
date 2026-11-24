@@ -1,0 +1,486 @@
+.event-details-mobile-title {
+  display: none;
+}
+
+.event-details-organizer span {
+  display: block;
+  color: var(--ink-500);
+  font-size: 11px;
+}
+
+.event-details {
+  --event-color: var(--main);
+  width: 100%;
+  min-width: 0;
+}
+
+.event-details--concert { --event-color: var(--cat-concert); }
+.event-details--conference { --event-color: var(--cat-conference); }
+.event-details--meetup { --event-color: var(--cat-meetup); }
+.event-details--sports { --event-color: var(--cat-sports); }
+.event-details--workshop { --event-color: var(--cat-workshop); }
+
+.event-details-hero {
+  min-height: 185px;
+  padding: 26px 32px;
+  background: var(--event-color);
+}
+
+.event-details-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 28px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.event-details-back img {
+  width: 15px;
+  height: 15px;
+}
+
+.event-details-hero__content {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.event-details-hero__title {
+  flex: 1;
+  min-width: 0;
+}
+
+.event-details-category {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.event-details-hero h1 {
+  font-size: clamp(26px, 3vw, 36px);
+  line-height: 1.1;
+  font-weight: 800;
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+}
+
+.event-details--conference .event-details-hero h1,
+.event-details--conference .event-details-category,
+.event-details--conference .event-details-back {
+  color: #fff;
+}
+
+.event-details--conference .event-details-back img {
+  filter: brightness(0) invert(1);
+}
+
+.event-details-date {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 48px;
+  min-height: 48px;
+  padding: 7px;
+  border-radius: 7px;
+  background: #fff;
+  line-height: 1;
+}
+
+.event-details-date strong {
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.event-details-date span {
+  margin-top: 4px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.event-details-attendees {
+  flex-shrink: 0;
+  padding: 10px 15px;
+  border-radius: 24px;
+  background: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.event-details-content {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 250px;
+  align-items: start;
+  gap: 48px;
+  padding: 30px 32px 50px;
+}
+
+.event-details-main {
+  min-width: 0;
+}
+
+.event-details-info {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  margin-bottom: 28px;
+}
+
+.event-details-info-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  min-width: 0;
+}
+
+.event-details-info-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  border-radius: 7px;
+  background: var(--main-tint);
+}
+
+.event-details-info-icon img {
+  width: 17px;
+  height: 17px;
+}
+
+.event-details-info-item > div {
+  min-width: 0;
+  padding-top: 3px;
+}
+
+.event-details-info-item strong {
+  display: block;
+  margin-bottom: 2px;
+  font-size: 12px;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.event-details-info-item div > span {
+  display: block;
+  color: var(--ink-500);
+  font-size: 11px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+/* Description */
+.event-details-about h2 {
+  margin-bottom: 16px;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.event-details-about p {
+  max-width: 700px;
+  color: var(--ink-700);
+  font-size: 13px;
+  line-height: 1.8;
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+}
+
+.event-details-organizer {
+  margin-top: 22px;
+  color: var(--ink-500);
+  font-size: 12px;
+}
+
+.event-details-organizer strong {
+  color: var(--ink);
+}
+
+.event-details-booking {
+  padding: 18px 16px 16px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+}
+
+.event-details-booking__label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--ink-500);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+.event-details-booking__count {
+  display: block;
+  font-size: 36px;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.event-details-booking__capacity {
+  margin-top: 5px;
+  color: var(--ink-500);
+  font-size: 11px;
+}
+
+.event-details-booking__divider {
+  margin: 16px 0 12px;
+  border-top: 1px dashed var(--line-strong);
+}
+
+.event-details-action {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  min-height: 42px;
+  padding: 7px 12px;
+  border: 0;
+  border-radius: 6px;
+  background: var(--main);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.event-details-action:hover:not(:disabled) {
+  background: var(--main-hover);
+}
+
+.event-details-action__arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.16);
+  font-size: 16px;
+}
+
+.event-details-action--cancel {
+  justify-content: center;
+  background: var(--error);
+}
+
+.event-details-action-note {
+  color: var(--ink-700);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.event-details-message {
+  padding: 24px 0;
+  color: var(--ink-700);
+}
+
+.event-details-notice {
+  margin-top: 18px;
+  padding: 12px 14px;
+  border-radius: 6px;
+  background: var(--paper-dark);
+  color: var(--ink-700);
+  font-size: 12px;
+}
+
+.event-details-notice--success {
+  background: var(--success-tint);
+  color: var(--success);
+}
+
+.event-details-notice--error {
+  background: var(--error-tint);
+  color: var(--error);
+}
+
+@media (max-width: 900px) {
+  .event-details-content {
+    grid-template-columns: minmax(0, 1fr) 220px;
+    gap: 24px;
+    padding: 26px 20px;
+  }
+
+  .event-details-hero {
+    padding: 24px 20px;
+  }
+}
+
+@media (max-width: 650px) {
+  .event-details-hero {
+    padding: 20px 16px;
+  }
+
+  .event-details-hero__content {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .event-details-hero__title {
+    flex-basis: calc(100% - 65px);
+  }
+
+  .event-details-attendees {
+    margin-left: auto;
+  }
+
+  .event-details-content {
+    grid-template-columns: 1fr;
+    padding: 24px 16px;
+  }
+
+  .event-details-info {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+}
+
+@media (max-width: 650px) {
+  .event-details { min-height: calc(100dvh - 72px); }
+  .event-details-hero {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    min-height: 235px;
+    padding: 20px 16px 28px;
+  }
+  .event-details-back {
+    position: absolute;
+    top: 20px;
+    left: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 35px;
+    height: 35px;
+    margin: 0;
+    border-radius: 50%;
+    background: #fff;
+    font-size: 0;
+  }
+  .event-details-back img { width: 16px; height: 16px; }
+  .event-details-hero__content { align-items: end; gap: 8px; }
+  .event-details-date { display: none; }
+  .event-details-hero__title { flex-basis: 100%; }
+  .event-details-hero h1 { max-width: 290px; font-size: 35px; line-height: 1.04; }
+  .event-details-category { font-size: 10px; }
+  .event-details-attendees { font-size: 11px; }
+  .event-details-content { display: flex; flex-direction: column; gap: 22px; padding: 24px 16px; }
+  .event-details-main { width: 100%; }
+  .event-details-info { gap: 17px; margin-bottom: 25px; }
+  .event-details-info-icon { width: 38px; height: 38px; }
+  .event-details-about h2 { margin-bottom: 10px; font-size: 20px; }
+  .event-details-about p { font-size: 13px; line-height: 1.65; }
+  .event-details-sidebar { width: 100%; }
+  .event-details-booking { padding: 14px; }
+  .event-details-action { min-height: 46px; }
+}
+
+@media (max-width: 650px) {
+  .event-details {
+    min-height: 100%;
+  }
+
+  .event-details-hero {
+    min-height: 245px;
+    padding: 20px 16px 30px;
+  }
+
+  .event-details-hero__content {
+    display: flex;
+    align-items: flex-end;
+  }
+
+  .event-details-hero__title {
+    flex-basis: 100%;
+  }
+
+  .event-details-category,
+  .event-details-attendees,
+  .event-details-date {
+    display: none;
+  }
+
+  .event-details-hero h1 {
+    max-width: 310px;
+    font-size: clamp(31px, 9vw, 40px);
+    line-height: 1.06;
+  }
+
+  .event-details-content {
+    padding: 26px 16px 125px;
+    gap: 0;
+  }
+
+  .event-details-mobile-title {
+    display: block;
+    margin-bottom: 22px;
+    font-size: 23px;
+    line-height: 1.2;
+  }
+
+  .event-details-info {
+    gap: 18px;
+    margin-bottom: 22px;
+  }
+
+  .event-details-info-item strong {
+    font-size: 12px;
+  }
+
+  .event-details-organizer {
+    margin: 0 0 20px;
+  }
+
+  .event-details-about h2 {
+    margin-bottom: 13px;
+    font-size: 15px;
+  }
+
+  .event-details-about p {
+    font-size: 12px;
+    line-height: 1.6;
+  }
+
+  .event-details-sidebar {
+    position: fixed;
+    right: 0;
+    bottom: calc(62px + env(safe-area-inset-bottom));
+    left: 0;
+    z-index: 105;
+    width: 100%;
+    padding: 8px 16px;
+    background: var(--paper);
+    border-top: 1px solid var(--line);
+  }
+
+  .event-details-booking {
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+  }
+
+  .event-details-booking__label,
+  .event-details-booking__count,
+  .event-details-booking__capacity,
+  .event-details-booking__divider {
+    display: none;
+  }
+
+  .event-details-action {
+    min-height: 46px;
+  }
+}

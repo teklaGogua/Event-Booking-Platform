@@ -1,0 +1,589 @@
+@media (max-width: 768px) {
+  .site-header,
+  .mobile-menu-button {
+    display: none;
+  }
+
+  .app-layout {
+    min-width: 0;
+    min-height: 100dvh;
+  }
+
+  .page-main {
+    width: 100%;
+    min-width: 0;
+    max-width: none;
+    margin: 0;
+    padding: 22px 16px calc(85px + env(safe-area-inset-bottom));
+  }
+
+  .page-main:has(.events-page),
+  .page-main:has(.event-details) {
+    padding: 0 0 calc(85px + env(safe-area-inset-bottom));
+  }
+
+  .auth-main {
+    width: 100%;
+    min-height: 100dvh;
+    padding: 0;
+  }
+
+  .events-page {
+    width: 100%;
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  .events-page__header {
+    display: block;
+    margin: 0 12px 12px;
+    padding: 18px 13px 19px;
+    border-radius: 0 0 20px 20px;
+    background: var(--main);
+  }
+
+  .events-page__header h1 {
+    display: none;
+  }
+
+  .events-mobile-location {
+    display: none;
+  }
+
+  .events-search {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    width: 100%;
+    min-height: 40px;
+    margin: 0;
+    padding: 0 12px;
+    border: 0;
+    border-radius: 24px;
+    background: #fff;
+  }
+
+  .events-search img {
+    width: 15px;
+    height: 15px;
+    flex-shrink: 0;
+  }
+
+  .events-search input {
+    width: 100%;
+    min-width: 0;
+    flex: 1;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: var(--ink);
+    font-size: 11px;
+  }
+
+  .events-search input::placeholder {
+    color: var(--ink-500);
+    opacity: 1;
+  }
+
+  .events-search button {
+    display: none;
+  }
+
+  .events-filters {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 8px;
+    width: 100%;
+    margin: 0 0 14px;
+    padding: 0 16px 3px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+    scroll-snap-type: x proximity;
+  }
+
+  .events-filters::-webkit-scrollbar {
+    display: none;
+  }
+
+  .events-filter {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    min-height: 27px;
+    padding: 5px 10px;
+    border: 0;
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: 700;
+    white-space: nowrap;
+    scroll-snap-align: start;
+  }
+
+  .events-filter img {
+    width: 12px;
+    height: 12px;
+    object-fit: contain;
+  }
+
+  .events-filter--all {
+    display: none;
+  }
+
+  .events-filter--concert {
+    background: var(--cat-concert);
+    color: var(--ink);
+  }
+
+  .events-filter--conference {
+    background: var(--cat-conference);
+    color: #fff;
+  }
+
+  .events-filter--meetup {
+    background: var(--cat-meetup);
+    color: var(--ink);
+  }
+
+  .events-filter--sports {
+    background: var(--cat-sports);
+    color: var(--ink);
+  }
+
+  .events-filter--workshop {
+    background: var(--cat-workshop);
+    color: var(--ink);
+  }
+
+  .events-filter.is-active {
+    box-shadow: inset 0 0 0 1px var(--ink);
+  }
+
+  .events-filter:hover:not(.is-active) {
+    filter: brightness(0.96);
+    background: var(--filter-color);
+  }
+
+  .events-mobile-section-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin: 0 16px 10px;
+  }
+
+  .events-mobile-section-title h2 {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 20px;
+  }
+
+  .events-mobile-section-title button {
+    flex-shrink: 0;
+    padding: 3px 0;
+    border: 0;
+    background: transparent;
+    color: var(--ink-700);
+    font-size: 10px;
+    font-weight: 400;
+  }
+
+  .events-grid {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 12px;
+    width: 100%;
+    margin: 0;
+    padding: 0 16px 16px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+    scroll-padding-left: 16px;
+    scroll-snap-type: x mandatory;
+  }
+
+  .events-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .events-grid > .event-card {
+    flex: 0 0 78%;
+    width: 78%;
+    max-width: 360px;
+    min-width: 0;
+    scroll-snap-align: start;
+  }
+
+  .event-card {
+    border-radius: 11px;
+  }
+
+  .event-card__banner {
+    min-height: 145px;
+    padding: 12px;
+  }
+
+  .event-card__date {
+    top: 11px;
+    left: 11px;
+    width: 34px;
+    min-height: 38px;
+  }
+
+  .event-card__display-title {
+    max-width: 100%;
+    font-size: 23px;
+    font-weight: 800;
+    line-height: 1.06;
+  }
+
+  .event-card__body {
+    gap: 7px;
+    min-height: 117px;
+    padding: 11px;
+  }
+
+  .event-card__title {
+    font-size: 12px;
+    line-height: 17px;
+  }
+
+  .event-card__attendance,
+  .event-card__venue {
+    font-size: 10px;
+    line-height: 15px;
+  }
+
+  .event-card__venue img {
+    width: 12px;
+    height: 12px;
+  }
+
+  .event-card__link {
+    min-height: 30px;
+    padding: 5px 10px;
+    font-size: 10px;
+  }
+
+  .events-message {
+    padding: 16px;
+    font-size: 12px;
+  }
+
+  .events-pagination {
+    gap: 12px;
+    margin: 14px 16px;
+    font-size: 11px;
+  }
+
+  .events-pagination button {
+    padding: 7px 12px;
+    font-size: 11px;
+  }
+
+  .event-details {
+    min-height: 100%;
+  }
+
+  .event-details-hero {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    min-height: 215px;
+    padding: 20px 16px 28px;
+  }
+
+  .event-details-back {
+    position: absolute;
+    top: 23px;
+    left: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    margin: 0;
+    border-radius: 50%;
+    background: #fff;
+    color: transparent;
+    font-size: 0;
+  }
+
+  .event-details-back img {
+    width: 16px;
+    height: 16px;
+    filter: none;
+  }
+
+  .event-details-hero__content {
+    display: block;
+  }
+
+  .event-details-date,
+  .event-details-category,
+  .event-details-attendees {
+    display: none;
+  }
+
+  .event-details-hero__title {
+    width: 100%;
+  }
+
+  .event-details-hero h1 {
+    max-width: 310px;
+    color: var(--ink);
+    font-size: clamp(30px, 8vw, 38px);
+    font-weight: 800;
+    line-height: 1.05;
+  }
+
+  .event-details--conference .event-details-hero h1 {
+    color: #fff;
+  }
+
+  .event-details-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding: 25px 16px calc(180px + env(safe-area-inset-bottom));
+  }
+
+  .event-details-main {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .event-details-mobile-title {
+    display: block;
+    margin-bottom: 21px;
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  .event-details-info {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 17px;
+    margin-bottom: 24px;
+  }
+
+  .event-details-info-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .event-details-info-icon {
+    width: 34px;
+    height: 34px;
+    flex-shrink: 0;
+    border-radius: 7px;
+  }
+
+  .event-details-info-icon img {
+    width: 16px;
+    height: 16px;
+  }
+
+  .event-details-info-item strong {
+    font-size: 11px;
+    line-height: 16px;
+  }
+
+  .event-details-info-item div > span {
+    font-size: 10px;
+    line-height: 15px;
+  }
+
+  .event-details-organizer {
+    margin: 0 0 20px;
+    font-size: 11px;
+  }
+
+  .event-details-organizer span {
+    display: block;
+    font-size: 10px;
+  }
+
+  .event-details-about h2 {
+    margin-bottom: 13px;
+    font-size: 15px;
+    line-height: 20px;
+  }
+
+  .event-details-about p {
+    font-size: 11px;
+    line-height: 1.6;
+  }
+
+  .event-details-sidebar {
+    position: fixed;
+    right: 0;
+    bottom: calc(60px + env(safe-area-inset-bottom));
+    left: 0;
+    z-index: 105;
+    width: 100%;
+    padding: 9px 16px;
+    border-top: 1px solid var(--line);
+    background: var(--paper);
+  }
+
+  .event-details-booking {
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+  }
+
+  .event-details-booking__label,
+  .event-details-booking__count,
+  .event-details-booking__capacity,
+  .event-details-booking__divider {
+    display: none;
+  }
+
+  .event-details-action {
+    min-height: 44px;
+    padding: 7px 12px;
+    font-size: 10px;
+  }
+
+  .event-details-action__arrow {
+    width: 27px;
+    height: 27px;
+  }
+
+  .bookings-page {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .bookings-page h1 {
+    margin-bottom: 20px;
+    font-size: 25px;
+    line-height: 31px;
+  }
+
+  .bookings-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+  }
+
+  .booking-ticket {
+    width: 100%;
+    border-radius: 10px;
+  }
+
+  .booking-ticket__banner {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    min-height: 117px;
+    padding: 13px;
+  }
+
+  .booking-ticket__eyebrow {
+    margin-bottom: 10px;
+    font-size: 9px;
+  }
+
+  .booking-ticket__banner h2 {
+    max-width: 260px;
+    font-size: 25px;
+    line-height: 1.05;
+  }
+
+  .booking-ticket__body {
+    padding: 24px 13px 13px;
+  }
+
+  .booking-ticket__tear {
+    right: 13px;
+    left: 13px;
+  }
+
+  .booking-ticket__metadata {
+    gap: 22px;
+    margin-bottom: 11px;
+  }
+
+  .booking-ticket__label {
+    font-size: 9px;
+  }
+
+  .booking-ticket__metadata strong {
+    font-size: 11px;
+  }
+
+  .booking-ticket__venue {
+    font-size: 10px;
+    line-height: 15px;
+  }
+
+  .booking-ticket__footer {
+    margin-top: 12px;
+  }
+
+  .booking-ticket__footer a,
+  .booking-ticket__footer button {
+    min-height: 28px;
+    font-size: 10px;
+  }
+
+  .dashboard-page,
+  .event-form-page {
+    min-width: 0;
+  }
+
+  .dashboard-page__header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .dashboard-event {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 390px) {
+  .events-page__header {
+    margin-right: 12px;
+    margin-left: 12px;
+    padding: 16px 12px;
+  }
+
+  .events-filters {
+    padding-right: 12px;
+    padding-left: 12px;
+  }
+
+  .events-mobile-section-title {
+    margin-right: 12px;
+    margin-left: 12px;
+  }
+
+  .events-grid {
+    gap: 10px;
+    padding-right: 12px;
+    padding-left: 12px;
+    scroll-padding-left: 12px;
+  }
+
+  .events-grid > .event-card {
+    flex-basis: 79%;
+    width: 79%;
+  }
+
+  .event-card__display-title {
+    font-size: 21px;
+  }
+}

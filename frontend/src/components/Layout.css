@@ -1,0 +1,16 @@
+.app-layout {
+  min-height: 100vh;
+}
+
+.page-main {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.auth-main {
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}

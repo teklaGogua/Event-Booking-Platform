@@ -1,0 +1,150 @@
+.event-card {
+  --event-color: var(--main);
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+}
+
+.event-card--concert {
+  --event-color: var(--cat-concert);
+}
+
+.event-card--conference {
+  --event-color: var(--cat-conference);
+}
+
+.event-card--meetup {
+  --event-color: var(--cat-meetup);
+}
+
+.event-card--sports {
+  --event-color: var(--cat-sports);
+}
+
+.event-card--workshop {
+  --event-color: var(--cat-workshop);
+}
+
+.event-card__banner {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  min-height: 148px;
+  padding: 12px;
+  background: var(--event-color);
+}
+
+.event-card__date {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 35px;
+  min-height: 38px;
+  border-radius: 6px;
+  background: #fff;
+  color: var(--ink);
+  line-height: 1.05;
+}
+
+.event-card__date strong {
+  font-size: 15px;
+}
+
+.event-card__date span {
+  margin-top: 3px;
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.event-card__display-title {
+  max-width: 100%;
+  font-size: clamp(19px, 2vw, 27px);
+  line-height: 1.05;
+  font-weight: 800;
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+}
+
+.event-card--conference .event-card__display-title {
+  color: #fff;
+}
+
+.event-card__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 128px;
+  padding: 12px;
+}
+
+.event-card__title {
+  font-size: 13px;
+  line-height: 18px;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.event-card__attendance {
+  font-size: 11px;
+  color: var(--ink-700);
+}
+
+.event-card__seat-status {
+  color: var(--ink-500);
+}
+
+.event-card__venue {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  min-width: 0;
+  color: var(--ink-700);
+  font-size: 11px;
+  line-height: 16px;
+}
+
+.event-card__venue img {
+  width: 13px;
+  height: 13px;
+  flex: 0 0 auto;
+  margin-top: 1px;
+}
+
+.event-card__venue span {
+  overflow-wrap: anywhere;
+}
+
+.event-card__link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 32px;
+  margin-top: auto;
+  padding: 6px 10px;
+  border: 1px solid var(--line-strong);
+  border-radius: 6px;
+  background: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.event-card__link:hover {
+  background: var(--paper);
+  border-color: var(--main);
+}
+
+.event-card__link:focus-visible {
+  outline: 2px solid var(--main);
+  outline-offset: 2px;
+}
